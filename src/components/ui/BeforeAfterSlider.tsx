@@ -295,8 +295,17 @@ const BeforeAfterSlider = ({
                 priority
               />
             )}
-            <div className="absolute top-6 right-6 bg-luxury-gold text-luxury-black px-4 py-2 text-base font-semibold rounded-lg pointer-events-none shadow-lg">
-              After
+            {/* LUXURY STAGED BADGE - Elegant Brand Aligned */}
+            <div className="absolute bottom-6 right-6 pointer-events-none">
+              <div className="relative">
+                <div className="bg-luxury-black/95 backdrop-blur-sm text-luxury-white px-4 py-2 rounded-md border border-luxury-gold/30">
+                  <div className="text-xs font-serif font-medium tracking-[0.1em] uppercase">
+                    Staged
+                  </div>
+                </div>
+                {/* Subtle luxury glow */}
+                <div className="absolute inset-0 bg-luxury-gold/20 rounded-md blur-sm -z-10"></div>
+              </div>
             </div>
           </div>
 
@@ -314,32 +323,67 @@ const BeforeAfterSlider = ({
               className="object-cover pointer-events-none"
               priority
             />
-            <div className="absolute top-6 left-6 bg-luxury-black/90 text-luxury-white px-4 py-2 text-base font-semibold rounded-lg pointer-events-none shadow-lg">
-              Before
+            {/* LUXURY ORIGINAL BADGE - Elegant Brand Aligned */}
+            <div className="absolute top-6 left-6 pointer-events-none">
+              <div className="relative">
+                <div className="bg-luxury-white/95 backdrop-blur-sm text-luxury-black px-4 py-2 rounded-md border border-luxury-gold/30">
+                  <div className="text-xs font-serif font-medium tracking-[0.1em] uppercase">
+                    Original
+                  </div>
+                </div>
+                {/* Subtle luxury glow */}
+                <div className="absolute inset-0 bg-luxury-gold/20 rounded-md blur-sm -z-10"></div>
+              </div>
             </div>
           </animated.div>
 
-          {/* Dramatic reveal indicator */}
+          {/* LUXURY TRANSFORMATION INDICATOR - Brand Elegance */}
           <animated.div
-            className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-luxury-gold/90 text-luxury-black px-6 py-3 text-base font-semibold rounded-full pointer-events-none shadow-xl backdrop-blur-sm"
+            className="absolute bottom-6 left-1/2 transform -translate-x-1/2 pointer-events-none"
             style={{
               opacity: sliderPosition.to(pos => pos > 20 ? 1 : 0),
-              scale: sliderPosition.to(pos => pos > 20 ? 1 : 0.8)
+              scale: sliderPosition.to(pos => pos > 20 ? 1 : 0.95)
             }}
           >
-            ✨ Cinematic Transformation
+            <div className="relative">
+              <div className="bg-luxury-white/95 backdrop-blur-sm text-luxury-black px-5 py-2.5 rounded-full border border-luxury-gold/40">
+                <div className="text-xs font-serif font-medium tracking-[0.1em] uppercase">
+                  Interactive Preview
+                </div>
+              </div>
+              {/* Luxury gold accent */}
+              <div className="absolute inset-0 bg-luxury-gold/20 rounded-full blur-sm -z-10"></div>
+            </div>
           </animated.div>
 
-          {/* Hover hint with enhanced styling */}
+          {/* LUXURY HOVER GUIDE - Sophisticated Brand Instruction */}
           <animated.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-luxury-black/80 text-luxury-white px-8 py-4 text-lg font-medium rounded-full pointer-events-none backdrop-blur-md border border-luxury-gold/30"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             style={{
               opacity: sliderPosition.to(pos => pos < 25 ? 0.9 : 0),
-              scale: isHovered.to(h => h === 1 ? 0.9 : 1),
+              scale: isHovered.to(h => h === 1 ? 0.95 : 1),
               display: isHovered.to(h => h === 1 ? 'none' : 'block')
             }}
           >
-            Hover to explore the transformation
+            <div className="relative">
+              <div className="bg-luxury-white/96 backdrop-blur-md text-luxury-black px-8 py-6 rounded-lg border border-luxury-gold/30">
+                <div className="text-center space-y-4">
+                  <div className="text-lg font-serif font-medium tracking-wide">
+                    Interactive Preview
+                  </div>
+                  <div className="text-sm text-luxury-black/70 leading-relaxed font-sans font-light">
+                    Hover to explore the cinematic transformation
+                  </div>
+                  <div className="flex justify-center space-x-1.5 pt-1">
+                    <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
+                    <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
+                    <div className="w-1 h-1 bg-luxury-gold rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+              {/* Luxury backdrop accent */}
+              <div className="absolute inset-0 bg-luxury-gold/15 rounded-lg blur-md -z-10"></div>
+            </div>
           </animated.div>
         </animated.div>
       </motion.div>
