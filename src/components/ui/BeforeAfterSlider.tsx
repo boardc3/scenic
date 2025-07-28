@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { useSpring, animated, useSpringValue } from '@react-spring/web';
+import { useDrag } from '@use-gesture/react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -25,62 +27,223 @@ const BeforeAfterSlider = ({
   description,
   className = ''
 }: BeforeAfterSliderProps) => {
-  const [sliderPosition, setSliderPosition] = useState(50);
-  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Spring value for smooth slider position
+  const sliderPosition = useSpringValue(15); // Start with more dramatic reveal
+  const isHovered = useSpringValue(0);
+  const scale = useSpringValue(1);
+  const brightness = useSpringValue(1);
 
-  const updateSliderPosition = (clientX: number) => {
-    if (!containerRef.current) return;
+  // Main spring animation for the reveal with dramatic config
+  const [springs, api] = useSpring(() => ({
+    position: 15,
+    config: {
+      tension: 180, // Higher tension for snappier movement
+      friction: 12, // Lower friction for more dramatic motion
+      mass: 0.8    // Lower mass for faster response
+    }
+  }));
+
+  // Grand auto-animation sequence
+  const startAutoAnimation = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPosition(percentage);
+    timeoutRef.current = setTimeout(() => {
+      // Dramatic scale and brightness pulse on start
+      scale.start({
+        to: 1.02,
+        config: { tension: 200, friction: 20 }
+      });
+      brightness.start({
+        to: 1.1,
+        config: { tension: 200, friction: 20 }
+      });
+      
+      api.start({
+        from: { position: 15 },
+        to: async (next) => {
+          // GRAND REVEAL SEQUENCE - Much faster and more dramatic
+          await next({ 
+            position: 45, 
+            config: { 
+              tension: 220, 
+              friction: 18,
+              mass: 0.6
+            } 
+          }); // Quick burst to 45%
+          
+          await next({ 
+            position: 75, 
+            config: { 
+              tension: 160, 
+              friction: 14,
+              mass: 0.8 
+            } 
+          }); // Smooth sweep to 75%
+          
+          await next({ 
+            position: 90, 
+            config: { 
+              tension: 140, 
+              friction: 16,
+              mass: 1
+            } 
+          }); // Final dramatic reveal to 90%
+          
+          // Hold the dramatic reveal for impact
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          
+          // Smooth return with anticipation
+          await next({ 
+            position: 15, 
+            config: { 
+              tension: 100, 
+              friction: 20,
+              mass: 1.2
+            } 
+          });
+          
+          // Reset scale and brightness
+          scale.start({ to: 1, config: { tension: 150, friction: 25 } });
+          brightness.start({ to: 1, config: { tension: 150, friction: 25 } });
+          
+          // Pause before next cycle
+          await new Promise(resolve => setTimeout(resolve, 2500));
+          
+          // Restart if not hovered
+          if (isHovered.get() === 0) {
+            startAutoAnimation();
+          }
+        },
+        onChange: (result) => {
+          if (isHovered.get() === 0) {
+            sliderPosition.set(result.value.position);
+          }
+        }
+      });
+    }, 800); // Shorter delay for immediate impact
   };
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    updateSliderPosition(e.clientX);
+  // Enhanced gesture handling
+  const bind = useDrag(
+    ({ active, movement: [mx], memo = sliderPosition.get() }) => {
+      if (!containerRef.current) return memo;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const deltaPercentage = (mx / rect.width) * 100;
+      const newPosition = Math.max(0, Math.min(95, memo + deltaPercentage));
+      
+      if (active) {
+        // Stop auto-animation while dragging
+        api.stop();
+        scale.stop();
+        brightness.stop();
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+        sliderPosition.set(newPosition);
+      }
+      
+      return memo;
+    },
+    {
+      filterTaps: true,
+      axis: 'x'
+    }
+  );
+
+  // Enhanced hover events with visual feedback
+  const handleMouseEnter = () => {
+    isHovered.set(1);
+    api.stop();
+    scale.stop();
+    brightness.stop();
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    
+    // Subtle hover feedback
+    scale.start({
+      to: 1.01,
+      config: { tension: 300, friction: 30 }
+    });
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handleMouseLeave = () => {
+    isHovered.set(0);
+    
+    // Dramatic return to start with anticipation
+    sliderPosition.start({
+      to: 15,
+      config: { 
+        tension: 120, 
+        friction: 25,
+        mass: 1.1
+      }
+    });
+    
+    scale.start({
+      to: 1,
+      config: { tension: 200, friction: 30 }
+    });
+    
+    // Restart auto-animation after brief pause
+    setTimeout(() => {
+      if (isHovered.get() === 0) {
+        startAutoAnimation();
+      }
+    }, 600);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
-    updateSliderPosition(e.clientX);
+    if (isHovered.get() === 1 && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const percentage = Math.max(5, Math.min(95, (x / rect.width) * 100));
+      
+      // Very responsive spring for manual control
+      sliderPosition.start({
+        to: percentage,
+        config: { tension: 300, friction: 30 }
+      });
+    }
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    const touch = e.touches[0];
-    updateSliderPosition(touch.clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
+  // Initialize dramatic auto-animation
+  useEffect(() => {
+    startAutoAnimation();
     
-    const touch = e.touches[0];
-    updateSliderPosition(touch.clientX);
-  };
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      api.stop();
+      scale.stop();
+      brightness.stop();
+    };
+  }, []);
 
   return (
     <div className={`w-full ${className}`}>
       {(title || description) && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-8 text-center"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-12 text-center"
         >
           {title && (
-            <h3 className="text-2xl lg:text-3xl font-serif text-luxury-black mb-4">
+            <h3 className="text-3xl lg:text-4xl font-serif text-luxury-black mb-6 leading-tight">
               {title}
             </h3>
           )}
           {description && (
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
               {description}
             </p>
           )}
@@ -88,85 +251,97 @@ const BeforeAfterSlider = ({
       )}
       
       <motion.div
-        ref={containerRef}
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.9, y: 40 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative w-full h-96 lg:h-[500px] overflow-hidden cursor-ew-resize bg-luxury-black rounded-lg shadow-2xl select-none"
-        style={{ WebkitUserSelect: 'none', userSelect: 'none' }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleMouseUp}
+        transition={{ 
+          duration: 1.2, 
+          ease: [0.25, 0.46, 0.45, 0.94],
+          staggerChildren: 0.1
+        }}
+        className="relative w-full h-96 lg:h-[600px] overflow-hidden bg-luxury-black rounded-2xl shadow-2xl"
       >
-        {/* Before Image */}
-        <div className="absolute inset-0">
-          <Image
-            src={beforeImage}
-            alt={beforeAlt}
-            fill
-            className="object-cover pointer-events-none"
-            priority
-          />
-          <div className="absolute top-4 left-4 bg-luxury-black/80 text-luxury-white px-3 py-1 text-sm font-medium rounded pointer-events-none">
-            Before
-          </div>
-        </div>
-
-        {/* After Content (Image or Video) */}
-        <div 
-          className="absolute inset-0 transition-all duration-100 pointer-events-none"
-          style={{ clipPath: `inset(0 0 0 ${sliderPosition}%)` }}
+        <animated.div
+          ref={containerRef}
+          className="absolute inset-0 select-none cursor-crosshair touch-none"
+          style={{ 
+            WebkitUserSelect: 'none', 
+            userSelect: 'none',
+            transform: scale.to(s => `scale(${s})`),
+            filter: brightness.to(b => `brightness(${b})`)
+          }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
+          {...bind()}
         >
-          {afterVideo ? (
-            <video
-              src={afterVideo}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover pointer-events-none"
-            />
-          ) : (
+          {/* After Content (Video/Image) - Bottom layer, always visible */}
+          <div className="absolute inset-0 pointer-events-none">
+            {afterVideo ? (
+              <video
+                src={afterVideo}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover pointer-events-none"
+              />
+            ) : (
+              <Image
+                src={afterImage!}
+                alt={afterAlt}
+                fill
+                className="object-cover pointer-events-none"
+                priority
+              />
+            )}
+            <div className="absolute top-6 right-6 bg-luxury-gold text-luxury-black px-4 py-2 text-base font-semibold rounded-lg pointer-events-none shadow-lg">
+              After
+            </div>
+          </div>
+
+          {/* Before Image - Top layer, clipped with dramatic spring animation */}
+          <animated.div 
+            className="absolute inset-0"
+            style={{
+              clipPath: sliderPosition.to(pos => `inset(0 ${pos}% 0 0)`)
+            }}
+          >
             <Image
-              src={afterImage!}
-              alt={afterAlt}
+              src={beforeImage}
+              alt={beforeAlt}
               fill
               className="object-cover pointer-events-none"
               priority
             />
-          )}
-          <div className="absolute top-4 right-4 bg-luxury-gold text-luxury-black px-3 py-1 text-sm font-medium rounded pointer-events-none">
-            After
-          </div>
-        </div>
+            <div className="absolute top-6 left-6 bg-luxury-black/90 text-luxury-white px-4 py-2 text-base font-semibold rounded-lg pointer-events-none shadow-lg">
+              Before
+            </div>
+          </animated.div>
 
-        {/* Slider Line */}
-        <div 
-          className="absolute top-0 bottom-0 w-0.5 bg-luxury-gold shadow-lg transition-all duration-100 pointer-events-none"
-          style={{ left: `${sliderPosition}%` }}
-        >
-          {/* Slider Handle */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-luxury-gold rounded-full shadow-lg cursor-ew-resize flex items-center justify-center pointer-events-none"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+          {/* Dramatic reveal indicator */}
+          <animated.div
+            className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-luxury-gold/90 text-luxury-black px-6 py-3 text-base font-semibold rounded-full pointer-events-none shadow-xl backdrop-blur-sm"
+            style={{
+              opacity: sliderPosition.to(pos => pos > 20 ? 1 : 0),
+              scale: sliderPosition.to(pos => pos > 20 ? 1 : 0.8)
+            }}
           >
-            <div className="w-3 h-3 border-l-2 border-r-2 border-luxury-black opacity-70"></div>
-          </motion.div>
-        </div>
+            ✨ Cinematic Transformation
+          </animated.div>
 
-        {/* Hover Instructions */}
-        <motion.div
-          initial={{ opacity: 1 }}
-          animate={{ opacity: isDragging ? 0 : 1 }}
-          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-luxury-black/80 text-luxury-white px-4 py-2 text-sm rounded-full group-hover:opacity-100 opacity-70 transition-opacity pointer-events-none"
-        >
-          Drag to compare
-        </motion.div>
+          {/* Hover hint with enhanced styling */}
+          <animated.div
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-luxury-black/80 text-luxury-white px-8 py-4 text-lg font-medium rounded-full pointer-events-none backdrop-blur-md border border-luxury-gold/30"
+            style={{
+              opacity: sliderPosition.to(pos => pos < 25 ? 0.9 : 0),
+              scale: isHovered.to(h => h === 1 ? 0.9 : 1),
+              display: isHovered.to(h => h === 1 ? 'none' : 'block')
+            }}
+          >
+            Hover to explore the transformation
+          </animated.div>
+        </animated.div>
       </motion.div>
     </div>
   );
