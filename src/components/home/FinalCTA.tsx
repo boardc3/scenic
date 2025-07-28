@@ -75,7 +75,7 @@ const FinalCTA = () => {
                   </svg>
                 </div>
                 <div className="callout-text text-lg font-medium text-luxury-black">Unlimited Revisions</div>
-                <div className="text-sm text-gray-600">Until you're satisfied</div>
+                <div className="text-sm text-gray-600">Until you&apos;re satisfied</div>
               </div>
               
               <div className="callout-grid text-center">
@@ -106,7 +106,7 @@ const FinalCTA = () => {
               className="text-center"
             >
               <p className="text-lg text-gray-500 italic">
-                "We're not staging furniture, we're staging a vision of their life."
+                &ldquo;We&apos;re not staging furniture, we&apos;re staging a vision of their life.&rdquo;
               </p>
             </motion.div>
           </motion.div>

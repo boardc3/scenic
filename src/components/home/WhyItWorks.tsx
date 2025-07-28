@@ -50,10 +50,10 @@ const WhyItWorks = () => {
                 viewport={{ once: true }}
                 className="heading-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-luxury-black"
               >
-                We're not staging{' '}
+                                  We&apos;re not staging{' '}
                 <span className="text-luxury-gold">furniture.</span>
                 <br />
-                We're staging a{' '}
+                                  We&apos;re staging a{' '}
                 <span className="text-luxury-gold">vision of life</span>{' '}
                 in the home.
               </motion.h2>

@@ -12,7 +12,7 @@ const Testimonials = () => {
       result: "$12M Sale"
     },
     {
-      quote: "Our listing videos from LifeStage AI consistently generate 3x more engagement than traditional photos. It's transformed how we market luxury properties.",
+      quote: "Our listing videos from LifeStage AI consistently generate 3x more engagement than traditional photos. It&apos;s transformed how we market luxury properties.",
       attribution: "Michael Torres",
       title: "Luxury Specialist, Manhattan",
       result: "300% More Views"
@@ -63,7 +63,7 @@ const Testimonials = () => {
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
                 </svg>
                 <p className="body-elegant text-lg text-luxury-off-white leading-relaxed">
-                  "{testimonial.quote}"
+                  &ldquo;{testimonial.quote}&rdquo;
                 </p>
               </div>
               

@@ -29,11 +29,11 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="heading-display hero-heading leading-tight"
                 >
-                  Buyers see the property{' '}
-                  <span className="text-luxury-gold">in the day,</span>
+                  We create the{' '}
+                  <span className="text-luxury-gold">cinematic moment</span>
                   <br />
-                  but they decide{' '}
-                  <span className="text-luxury-gold">at night.</span>
+                  where they say{' '}
+                  <span className="text-luxury-gold">&ldquo;this is home&rdquo;</span>
                 </motion.h1>
 
                 <motion.div
@@ -49,9 +49,9 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.6 }}
                   className="text-lg text-luxury-off-white leading-relaxed max-w-lg"
                 >
-                  It's 9 PM. The kids are finally asleep. Your buyer is scrolling through listings 
-                  on their laptop, wine in hand, dreaming of their next chapter. This is when they 
-                  fall in love with a home—when they can imagine their life unfolding there.
+                  It&apos;s 8:30 PM. The kids are finally asleep. They&apos;re lying in bed, scrolling 
+                  through the same Zillow photos for the 100th time, obsessing over every detail 
+                  because this is the largest purchase of their life.
                 </motion.p>
 
                 <motion.p
@@ -60,8 +60,8 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.8 }}
                   className="text-base text-luxury-gold font-medium"
                 >
-                  We create cinematic videos that capture that emotional moment—transforming 
-                  a few daytime photos into the twilight vision they're craving.
+                  Our cinematic evening transformations capture that feeling—turning standard 
+                  daytime photos into the twilight vision where they picture their life unfolding.
                 </motion.p>
               </div>
 
@@ -75,7 +75,7 @@ const Hero = () => {
                   See the Magic
                 </Button>
                 <Button href="/contact" variant="outline" size="lg" className="btn-grid-lg">
-                  Request Demo Video
+                  Create Their Moment
                 </Button>
               </motion.div>
             </motion.div>
@@ -85,8 +85,8 @@ const Hero = () => {
               <BeforeAfterSlider
                 beforeImage="/image.webp"
                 afterVideo="/movie.mp4"
-                beforeAlt="Daytime MLS listing photo"
-                afterAlt="Evening cinematic video"
+                beforeAlt="Standard daytime listing photo"
+                afterAlt="Cinematic evening transformation"
               />
             </div>
           </div>

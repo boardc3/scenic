@@ -188,12 +188,12 @@ export default function AboutPage() {
                 
                 <p className="body-elegant text-lg text-gray-600">
                   We discovered that traditional real estate photography was falling short in 
-                  the luxury market. Static images couldn't capture the feeling of coming home 
+                  the luxury market. Static images couldn&apos;t capture the feeling of coming home 
                   after a long day, or the joy of entertaining friends on a sunset terrace.
                 </p>
                 
                 <p className="body-elegant text-lg text-gray-600">
-                  Today, we've transformed over 2,000 luxury listings and generated more than 
+                  Today, we&apos;ve transformed over 2,000 luxury listings and generated more than 
                   $500M in sales for our agent partners. But our mission remains the same: 
                   helping buyers see not just a house, but their future home.
                 </p>

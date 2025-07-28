@@ -40,7 +40,7 @@ const PremiumTierPreview = () => {
                 transition={{ delay: 0.4 }}
                 className="body-elegant text-lg lg:text-xl text-luxury-off-white"
               >
-                Our premium tier creates a cinematic film modeled after the buyer's life, 
+                Our premium tier creates a cinematic film modeled after the buyer&apos;s life, 
                 integrating their personal details, lifestyle, and aspirations into the property narrative.
               </motion.p>
             </div>

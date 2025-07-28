@@ -177,7 +177,7 @@ export default function PricingPage() {
             
             <p className="body-elegant text-xl text-luxury-off-white mb-8 max-w-2xl mx-auto">
               For the ultimate differentiator, our premium tier creates buyer-specific videos 
-              modeled after your client's lifestyle. Pricing starts at $5,000 per video.
+              modeled after your client&apos;s lifestyle. Pricing starts at $5,000 per video.
             </p>
             
             <div className="callout-grid bg-luxury-gold/10 border border-luxury-gold/20 mb-8">
@@ -248,7 +248,7 @@ export default function PricingPage() {
                 className="callout-grid"
               >
                 <h3 className="text-lg font-medium text-luxury-black mb-3">
-                  What's included in each plan?
+                  What&apos;s included in each plan?
                 </h3>
                 <p className="text-gray-600">
                   All plans include cinematic video production, 4K quality, curated soundtrack, 
@@ -266,7 +266,7 @@ export default function PricingPage() {
                   How do I upgrade or downgrade my plan?
                 </h3>
                 <p className="text-gray-600">
-                  You can change your plan at any time. Contact our support team and we'll 
+                  You can change your plan at any time. Contact our support team and we&apos;ll 
                   handle the transition seamlessly with prorated billing.
                 </p>
               </motion.div>
@@ -282,7 +282,7 @@ export default function PricingPage() {
                 </h3>
                 <p className="text-gray-600">
                   Additional videos can be purchased at the per-listing rate of $500. 
-                  We'll also help you find the right plan for your volume.
+                  We&apos;ll also help you find the right plan for your volume.
                 </p>
               </motion.div>
             </div>

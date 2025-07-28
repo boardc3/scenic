@@ -53,7 +53,7 @@ export default function ContactPage() {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="heading-display text-4xl md:text-5xl lg:text-6xl mb-6">
-              Let's{' '}
+              Let&apos;s{' '}
               <span className="text-luxury-gold">connect</span>
             </h1>
             
@@ -61,7 +61,7 @@ export default function ContactPage() {
             
             <p className="body-elegant text-xl text-luxury-off-white max-w-2xl mx-auto text-center">
               Ready to transform your listings with cinematic videos? 
-              We're here to help you close more deals.
+              We&apos;re here to help you close more deals.
             </p>
           </motion.div>
         </div>
@@ -84,8 +84,8 @@ export default function ContactPage() {
                   <span className="text-luxury-gold">demo video</span>
                 </h2>
                 <p className="body-elegant text-gray-800">
-                  Fill out the form below and we'll get back to you within 24 hours to discuss 
-                  your needs and show you what's possible.
+                  Fill out the form below and we&apos;ll get back to you within 24 hours to discuss 
+                  your needs and show you what&apos;s possible.
                 </p>
               </div>
 
@@ -101,7 +101,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-medium text-gray-900 mb-2">Message sent!</h3>
-                  <p className="text-gray-700">We'll get back to you within 24 hours.</p>
+                  <p className="text-gray-700">We&apos;ll get back to you within 24 hours.</p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="form-grid">
@@ -353,7 +353,7 @@ export default function ContactPage() {
                     Do you offer revisions?
                   </h3>
                   <p className="text-gray-600">
-                    Yes, unlimited revisions until you're completely satisfied. 
+                    Yes, unlimited revisions until you&apos;re completely satisfied. 
                     Your success is our success.
                   </p>
                 </motion.div>
@@ -365,7 +365,7 @@ export default function ContactPage() {
                   className="callout-grid"
                 >
                   <h3 className="text-lg font-medium text-luxury-black mb-2">
-                    What's included in pricing?
+                    What&apos;s included in pricing?
                   </h3>
                   <p className="text-gray-600">
                     Everything: video creation, music licensing, unlimited revisions, 

@@ -42,8 +42,8 @@ export default function PremiumPage() {
             <div className="gold-accent mx-auto" />
             
             <p className="body-elegant text-xl text-luxury-off-white max-w-3xl mx-auto">
-              Modeled after the buyer's life, these videos help close life-changing deals. 
-              When standard luxury isn't enough, premium tier delivers the impossible.
+              Modeled after the buyer&apos;s life, these videos help close life-changing deals. 
+              When standard luxury isn&apos;t enough, premium tier delivers the impossible.
             </p>
           </motion.div>
         </div>
@@ -97,7 +97,7 @@ export default function PremiumPage() {
             <div className="gold-accent mx-auto" />
             
             <p className="body-elegant text-xl text-gray-600 max-w-3xl mx-auto">
-              Each premium video is uniquely crafted around the specific buyer's lifestyle, 
+              Each premium video is uniquely crafted around the specific buyer&apos;s lifestyle, 
               creating an emotional connection that standard marketing cannot achieve.
             </p>
           </div>
@@ -187,7 +187,7 @@ export default function PremiumPage() {
             
             <p className="body-elegant text-xl text-luxury-off-white max-w-2xl mx-auto">
               Creating bespoke videos requires deep collaboration and understanding. 
-              Here's how we bring your buyer's vision to life.
+                              Here&apos;s how we bring your buyer&apos;s vision to life.
             </p>
           </div>
 
