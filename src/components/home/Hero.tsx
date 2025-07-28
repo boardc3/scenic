@@ -29,11 +29,11 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="heading-display hero-heading leading-tight"
                 >
-                  We create the{' '}
-                  <span className="text-luxury-gold">cinematic moment</span>
+                  Your listings need to{' '}
+                  <span className="text-luxury-gold">cut through the noise</span>
                   <br />
-                  where they say{' '}
-                  <span className="text-luxury-gold">&ldquo;this is home&rdquo;</span>
+                  when it{' '}
+                  <span className="text-luxury-gold">matters most</span>
                 </motion.h1>
 
                 <motion.div
@@ -49,9 +49,9 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.6 }}
                   className="text-lg text-luxury-off-white leading-relaxed max-w-lg"
                 >
-                  It&apos;s 8:30 PM. The kids are finally asleep. They&apos;re lying in bed, scrolling 
-                  through the same Zillow photos for the 100th time, obsessing over every detail 
-                  because this is the largest purchase of their life.
+                  It&apos;s 8:30 PM. Your buyer is scrolling through 50+ listings, obsessing over 
+                  every detail before they make the biggest purchase of their life. Static photos 
+                  aren&apos;t enough to make them stop scrolling.
                 </motion.p>
 
                 <motion.p
@@ -60,8 +60,8 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.8 }}
                   className="text-base text-luxury-gold font-medium"
                 >
-                  Our cinematic evening transformations capture that feeling—turning standard 
-                  daytime photos into the twilight vision where they picture their life unfolding.
+                  We turn your standard photos into evening video stories that make buyers 
+                  pause, save, and schedule showings. More engagement. Higher offers. Faster sales.
                 </motion.p>
               </div>
 
