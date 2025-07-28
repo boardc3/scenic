@@ -356,6 +356,48 @@ const BeforeAfterSlider = ({
             </div>
           </animated.div>
 
+          {/* DIAGONAL LINE WITH ARROW - Dims on hover */}
+          <animated.div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              opacity: isHovered.to(h => h === 1 ? 0.15 : 1),
+              transform: isHovered.to(h => h === 1 ? 'scale(0.95)' : 'scale(1)')
+            }}
+          >
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              {/* Diagonal line from top left to bottom right */}
+              <line
+                x1="5"
+                y1="5"
+                x2="95"
+                y2="95"
+                stroke="rgba(255, 255, 255, 0.6)"
+                strokeWidth="0.3"
+                strokeDasharray="1 1"
+                className="drop-shadow-sm"
+              />
+              
+              {/* Arrow pointing toward bottom right */}
+              <g transform="translate(90, 90)">
+                <path
+                  d="M 0 -4 L 4 0 L 0 4 L 1 0 Z"
+                  fill="rgba(255, 255, 255, 0.7)"
+                  className="drop-shadow-sm"
+                />
+                <path
+                  d="M -8 0 L 1 0"
+                  stroke="rgba(255, 255, 255, 0.7)"
+                  strokeWidth="0.8"
+                  className="drop-shadow-sm"
+                />
+              </g>
+            </svg>
+          </animated.div>
+
           {/* LUXURY HOVER GUIDE - Sophisticated Brand Instruction */}
           <animated.div
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
